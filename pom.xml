@@ -41,12 +41,11 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+	    <dependency>
+	      <groupId>com.ibm.db2.jcc</groupId>
+	      <artifactId>db2jcc4</artifactId>
+	      <version>4.24.92c</version>
+	    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -58,6 +57,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+		<id>repo</id>
+		<url>file://${project.basedir}/lib</url>
+	</repository>
+</repositories>
 
 	<build>
 		<plugins>
