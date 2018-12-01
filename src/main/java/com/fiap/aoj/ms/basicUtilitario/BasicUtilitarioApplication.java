@@ -1,12 +1,12 @@
-package com.fiap.aoj.ms.basicSistema;
+package com.fiap.aoj.ms.basicUtilitario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BasicSistemaApplication {
+public class BasicUtilitarioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BasicSistemaApplication.class, args);
+		SpringApplication.run(BasicUtilitarioApplication.class, args);
 	}
 }
