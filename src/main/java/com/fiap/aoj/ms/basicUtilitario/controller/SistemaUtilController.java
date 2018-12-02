@@ -19,9 +19,10 @@ import com.fiap.aoj.ms.basicUtilitario.entity.SistemaMicroservico;
 import com.fiap.aoj.ms.basicUtilitario.vo.SistemaVO;
 
 @RestController
-public class UtilitarioController {
+@RequestMapping("/sistema")
+public class SistemaUtilController {
 
-	Logger logger = LoggerFactory.getLogger(UtilitarioController.class);	
+	Logger logger = LoggerFactory.getLogger(SistemaUtilController.class);	
 
 	
 	@Autowired
