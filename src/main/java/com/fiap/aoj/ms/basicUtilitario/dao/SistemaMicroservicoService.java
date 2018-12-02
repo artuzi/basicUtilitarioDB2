@@ -22,7 +22,7 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
 
     //@Autowired
     //private SistemaMicroservicoRepository sistemaMicroservicoRepository;
-
+	
 	private final SistemaMicroservicoRepository sistemaMicroservicoRepository;
 
 	SistemaMicroservicoService(SistemaMicroservicoRepository sistemaMicroservicoRepository) {
@@ -31,7 +31,9 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
 	  
     
 	Logger logger = LoggerFactory.getLogger(SistemaMicroservicoService.class);		
-
+	
+	private final String URL_SISTEMA = "http://localhost:8090/get/";
+	private final String URL_MICROSERVICO = "http://localhost:8095/get/";
     
 	@Override
 	public SistemaMicroservico create(SistemaMicroservico sistema) {
@@ -81,10 +83,10 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
 	@Override
 	public SistemaVO findSistemaVO(Long id) {
 		
-		logger.info("Chamando servico SISTEMA");
+		logger.info("Chamando servico SISTEMA para id " + id);
 
 		RestTemplate restTemplate = new RestTemplate();
-        Sistema sistema = restTemplate.getForObject("http://localhost:8090/get/" + id, Sistema.class);
+        Sistema sistema = restTemplate.getForObject(URL_SISTEMA + id, Sistema.class);
         
 		SistemaVO sistemaVO = new SistemaVO();
         sistemaVO.setIdSistema(sistema.getId());
@@ -102,8 +104,12 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
         
 		logger.info("Chamando servico MICROSISTEMA");
         for (int i = 0; i < SistemaMicroservicos.size(); i++){
-            Microservico microservico = restTemplate.getForObject("http://localhost:8095/get/" + SistemaMicroservicos.get(i).getIdMicroservico(), Microservico.class);
-            microservicos.add(microservico);
+            try {
+	        	Microservico microservico = restTemplate.getForObject(URL_MICROSERVICO + SistemaMicroservicos.get(i).getIdMicroservico(), Microservico.class);
+	            microservicos.add(microservico);
+            } catch (Exception e) {
+            	logger.info("Nao foi possivel encontrar microservico " +  SistemaMicroservicos.get(i).getIdMicroservico() );
+            }
         };
         		
         sistemaVO.setMicroservicos(microservicos);
