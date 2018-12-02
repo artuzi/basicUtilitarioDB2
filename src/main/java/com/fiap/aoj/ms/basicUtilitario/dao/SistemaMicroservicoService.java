@@ -107,6 +107,7 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
 	            microservicos.add(microservico);
             } catch (Exception e) {
             	logger.info("Nao foi possivel encontrar microservico " +  SistemaMicroservicos.get(i).getIdMicroservico() );
+            	e.printStackTrace();
             }
         };
         		
