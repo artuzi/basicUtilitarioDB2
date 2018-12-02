@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.aoj.ms.basicUtilitario.dao.ISistemaMicroservicoService;
+import com.fiap.aoj.ms.basicUtilitario.dao.SistemaMicroservicoService;
 import com.fiap.aoj.ms.basicUtilitario.entity.SistemaMicroservico;
+import com.fiap.aoj.ms.basicUtilitario.vo.SistemaVO;
 
 @RestController
 public class UtilitarioController {
 
 	Logger logger = LoggerFactory.getLogger(UtilitarioController.class);	
 
+	
 	@Autowired
 	private ISistemaMicroservicoService sistemaMicroservicoService;	
 	
@@ -85,4 +88,24 @@ public class UtilitarioController {
 		logger.info("retornando todos os sistemas_x_microservicos");
 		return sistemaMicroservicoService.getAll();
 	}
+	
+	
+	@GetMapping("/getMicroservicosBySistema/{id}")
+	public ResponseEntity<SistemaVO> getMicroservicosBySisteema(@PathVariable Long id) {
+		
+		SistemaVO SistemaVO = null;
+		
+		try {
+			SistemaVO = sistemaMicroservicoService.findSistemaVO(id);
+			
+			logger.info("get processado " + SistemaVO.getIdSistema() + " " + SistemaVO.getNome());
+		} catch (Exception e) {
+			logger.error("Nao encontrado " + id);
+			return new ResponseEntity<>(SistemaVO,HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>(SistemaVO,HttpStatus.OK);
+	}	
+	
+	
 }
