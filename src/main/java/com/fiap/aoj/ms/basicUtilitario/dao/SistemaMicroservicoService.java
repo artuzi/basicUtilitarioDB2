@@ -95,15 +95,13 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
         sistemaVO.setVersao(sistema.getVersao());
         sistemaVO.setAtivo(sistema.getAtivo());
  
-        List<Microservico> microservicos = new ArrayList<Microservico>();
-        
 		logger.info("Obtendo servicos do sistema");
-
         List<SistemaMicroservico> SistemaMicroservicos = sistemaMicroservicoRepository.findByIdSistema(id);
 
-        
 		logger.info("Chamando servico MICROSISTEMA");
-        for (int i = 0; i < SistemaMicroservicos.size(); i++){
+        List<Microservico> microservicos = new ArrayList<Microservico>();
+
+		for (int i = 0; i < SistemaMicroservicos.size(); i++){
             try {
 	        	Microservico microservico = restTemplate.getForObject(URL_MICROSERVICO + SistemaMicroservicos.get(i).getIdMicroservico(), Microservico.class);
 	            microservicos.add(microservico);
