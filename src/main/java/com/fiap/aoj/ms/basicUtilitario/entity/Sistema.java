@@ -14,12 +14,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Sistema implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
- 	Long id;
+    @JsonProperty("idsistema")
+	Long id;
 	String nome;
     String host;
     String versao;
@@ -28,7 +31,7 @@ public class Sistema implements Serializable {
 	public Long getId() {
 		return id;
 	}
-	public void set(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {

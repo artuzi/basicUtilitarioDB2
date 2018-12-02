@@ -89,7 +89,7 @@ public class SistemaMicroservicoService implements ISistemaMicroservicoService {
         Sistema sistema = restTemplate.getForObject(URL_SISTEMA + id, Sistema.class);
         
 		SistemaVO sistemaVO = new SistemaVO();
-        sistemaVO.setIdSistema(sistema.getId());
+        sistemaVO.setId(id);   //toquei o label de idSistema para idsistema, nao deve estar achando
         sistemaVO.setNome(sistema.getNome());
         sistemaVO.setHost(sistema.getHost());
         sistemaVO.setVersao(sistema.getVersao());

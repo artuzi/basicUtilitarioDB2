@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.aoj.ms.basicUtilitario.dao.ISistemaMicroservicoService;
-import com.fiap.aoj.ms.basicUtilitario.dao.SistemaMicroservicoService;
 import com.fiap.aoj.ms.basicUtilitario.entity.SistemaMicroservico;
 import com.fiap.aoj.ms.basicUtilitario.vo.SistemaVO;
 
@@ -27,11 +26,6 @@ public class UtilitarioController {
 	
 	@Autowired
 	private ISistemaMicroservicoService sistemaMicroservicoService;	
-	
-	/*
-	 * @RequestMapping("/sistemaMicroservico")
-	 * 
-	 */
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value="/insert")
@@ -93,18 +87,19 @@ public class UtilitarioController {
 	@GetMapping("/getMicroservicosBySistema/{id}")
 	public ResponseEntity<SistemaVO> getMicroservicosBySisteema(@PathVariable Long id) {
 		
-		SistemaVO SistemaVO = null;
+		SistemaVO sistemaVO = new SistemaVO();
 		
 		try {
-			SistemaVO = sistemaMicroservicoService.findSistemaVO(id);
+			sistemaVO = sistemaMicroservicoService.findSistemaVO(id);
 			
-			logger.info("get processado " + SistemaVO.getIdSistema() + " " + SistemaVO.getNome());
+			logger.info("getMicroservicosBySistema processado " + sistemaVO.getId() + " " + sistemaVO.getNome());
 		} catch (Exception e) {
 			logger.error("Nao encontrado " + id);
-			return new ResponseEntity<>(SistemaVO,HttpStatus.NOT_FOUND);
+			e.printStackTrace();
+			return new ResponseEntity<>(sistemaVO,HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>(SistemaVO,HttpStatus.OK);
+		return new ResponseEntity<>(sistemaVO,HttpStatus.OK);
 	}	
 	
 	
